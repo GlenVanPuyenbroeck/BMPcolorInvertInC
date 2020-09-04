@@ -9,7 +9,7 @@ struct nodeFile
 
 static struct nodeFile *head_ref= NULL;
 static struct nodeFile *BMP = NULL;
-static int  end = 0  ;
+static int end =  0;
 static int teller = 0;
 
 void setFree(struct nodeFile **head_ref)
@@ -20,7 +20,7 @@ void setFree(struct nodeFile **head_ref)
     {
         *head_ref = (*head_ref) -> next;
         free(prev);
-         prev = *head_ref;
+        prev = *head_ref;
     }
 }
 
@@ -43,7 +43,6 @@ void append(struct nodeFile** head_ref)
 
        last->next = BMP;
        return;
-
 }
 
 void Data(FILE *bestand,FILE *new)
