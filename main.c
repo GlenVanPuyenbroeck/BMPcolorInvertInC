@@ -7,6 +7,7 @@ struct nodeFile
     struct nodeFile *next;
 };
 
+static int *memory = NULL;
 static struct nodeFile *head_ref= NULL;
 static struct nodeFile *BMP = NULL;
 static int end =  0;
@@ -24,13 +25,14 @@ void setFree(struct nodeFile **head_ref)
     }
 }
 
-void append(struct nodeFile** head_ref)
+void append(struct nodeFile** head_ref , FILE * new)
 {
        BMP = (struct nodeFile*) malloc(sizeof(struct nodeFile));
        struct nodeFile *last = *head_ref;
 
        BMP->file  = &end;
        BMP->next = NULL;
+       fputc( *BMP -> file , new);
 
        if (*head_ref == NULL)
        {
@@ -49,6 +51,8 @@ void Data(FILE *bestand,FILE *new)
 {
     while ((end = fgetc(bestand)) != EOF )
     {
+        memory = (int *)malloc(sizeof(int));
+        memory = &end;
         switch(teller)
         {
                 case 0 || 1: if((end != 66 ) &&  (end != 77))
@@ -58,10 +62,10 @@ void Data(FILE *bestand,FILE *new)
                             } break;
         }
 
-        append(&head_ref);
-        (teller < 54  ) ?  fputc( *BMP -> file ,new):fputc( ~(*BMP -> file),new); ;
-         teller++;
-     }
+        (teller < 54  ) ?  append(&head_ref, new) :fputc( ~(*memory),new); ;
+        teller++;
+        free(memory);
+    }
 }
 
 int main(void)
